@@ -7,6 +7,7 @@
 #pragma once
 
 #include "../misc/defs.c"
+#include "../misc/panic.c"
 #include "ports.c"
 #include "terminal.c"
 
@@ -232,7 +233,7 @@ void ata_pio_write48(uint64_t LBA, uint16_t sectorcount, uint8_t *target) {
                 break;
             }
             else if(status & STAT_ERR) {
-                panic();
+                kpanic();
             }
         }
         // Transfer the data!

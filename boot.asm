@@ -16,10 +16,15 @@ global write_port_word
 global load_idt
 global outsw
 global insw
+global panic
 
 extern main
 extern keyboard_handler_main
 
+panic:
+    cli
+    hlt
+    jmp $
 read_port:
 	mov edx, [esp + 4]
 	in al, dx

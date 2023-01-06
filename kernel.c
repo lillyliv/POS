@@ -12,19 +12,13 @@
 #include "drivers/ata.c"
 #include "memory/memory.c"
 #include "misc/defs.c"
+#include "misc/panic.c"
 
 #define PANIC_ON_NO_ATA 0
 
 const char* loadedMsg = "PDOS Loaded Successfully.\n";
-const char* kernelPanicMsg = "\n\nPDOS Kernel Panic!\nHalting CPU...\n";
 
 static u8* atabuf[512] = {0};
-
-void panic(void) {
-	kprint(kernelPanicMsg);  // signal to the user that their computer just crashed
-	__asm__ volatile("cli"); // if we dont stop interrupts it might appear as if the os never halted
-	__asm__ volatile("hlt"); // halt everything but interrupts
-}
 
 void main(void)
 {

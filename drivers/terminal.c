@@ -111,7 +111,7 @@ void kprint_formatted(const char* string) { // wip doesnt work rn to print forma
 
 void termRunProgram(char* programName) {
     if(strcmp(programName, "hi")) {
-        kprint("lolol");
+        kprint("hello!\n");
     }
 }
 
