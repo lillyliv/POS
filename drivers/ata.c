@@ -48,6 +48,7 @@
  * At that point, if ERR is clear, the data is ready to read from the Data port (0x1F0).
  * Read 256 16-bit values, and store them.
  */
+u8* sectBuffer[512] = {0};
 
 uint8_t identify() {
     inb(ATA_PRIMARY_COMM_REGSTAT);
