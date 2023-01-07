@@ -110,8 +110,8 @@ void kprint_formatted(const char* string) { // wip doesnt work rn to print forma
 }
 
 void termRunProgram(char* programName) {
-    if(strcmp(programName, "hi")) {
-        kprint("hello!\n");
+    if(strcmp(programName, "install")) {
+        installQuestion();
     }
 }
 
@@ -124,7 +124,6 @@ void termHandleInput(char key) {
             termInputBuf[i] = 0;
         }
         termInputBufPos = 0;
-        kprint("$");
         return;
     } else if (key == '\b') {
         if (!termInputBufPos) return; // do nothing if trying to backspace empty command
@@ -138,4 +137,10 @@ void termHandleInput(char key) {
         vidptr[current_loc++] = key;
         vidptr[current_loc++] = 0x07;
     }
+}
+
+void exit_program(void) {
+    keyboard_switch_kernel_mode();
+    clear_screen();
+    kprint("$");
 }

@@ -15,6 +15,8 @@
 #include "memory/memory.c"
 #include "misc/defs.c"
 #include "misc/panic.c"
+#include "filesystem/pfs.c"
+#include "filesystem/vfs.c"
 
 #define PANIC_ON_NO_ATA 0
 #define ATA_ENABLED 1
@@ -22,23 +24,27 @@
 
 const char* loadedMsg = "POS Loaded Successfully.\n";
 
-static u8* atabuf[512] = {0};
+// static u8* atabuf[512] = {0};
 
 void install(void) {
+	exit_program();
+}
 
-}
-void installQuestion(void) { // wip
-	kprint("POS not detected :(\nWould you like to install it?\nY/N\n");
-}
 void installer_keyboard_callback(char keycode) { // wip
 	char key = keyboard_map[(unsigned char) keycode];
 	if (key == 'y') { // install
 		install();
 	} else if (key == 'n') { // no install
-		kprint("\n$");
-		keyboard_switch_kernel_mode();
+		exit_program();
 	}
 	return;
+}
+
+
+void installQuestion(void) { // wip
+	setAppModeCallback(&installer_keyboard_callback);
+	keyboard_switch_app_mode();
+	kprint("Would you like to install POS?\nY/N\n");
 }
 
 void main(void)
@@ -52,15 +58,12 @@ void main(void)
 	// random spot on the left side of the screen 
 	// and i didnt feel like writing a moving cursor so i just hide it
 
-	setAppModeCallback(&installer_keyboard_callback);
-	keyboard_switch_app_mode();
-
 	// readSect();
 	if (ATA_ENABLED) {
 
-		// try to identify ata drive, doesnt work for me however every other ata function does??
-		if(identify() != 0) {
-			kprint("No ata drive found, this might be a problem.\nIf everything still works properly feel free to ignore this message.\n\n");
+		if(!identify()) {
+			kprint("No ATA drive found, this might be a problem.\n"
+			"If everything still works properly feel free to ignore this message.\n\n");
 			if (PANIC_ON_NO_ATA) panic();
 		}
 
