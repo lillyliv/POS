@@ -12,7 +12,7 @@
 // 102-105 (dword): file size (max filesize is slightly less than 4.3gb,
 //                  files should never get this big considering memory 
 //                  on a 32 bit system is limited to 4gb)
-// 105-150: owner (truncated if neccicary)
+// 105-150: owner (not truncated as this may cause security issues)
 // 151-154: "PFS", followed by null
 // 155: version, this driver is version 1
 // 156: bitmap of which sectors contain a file header

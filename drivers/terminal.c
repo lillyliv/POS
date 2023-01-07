@@ -124,6 +124,7 @@ void termHandleInput(char key) {
             termInputBuf[i] = 0;
         }
         termInputBufPos = 0;
+        kprint("$");
         return;
     } else if (key == '\b') {
         if (!termInputBufPos) return; // do nothing if trying to backspace empty command

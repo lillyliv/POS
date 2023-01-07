@@ -25,10 +25,20 @@ const char* loadedMsg = "POS Loaded Successfully.\n";
 static u8* atabuf[512] = {0};
 
 void install(void) {
+
+}
+void installQuestion(void) { // wip
 	kprint("POS not detected :(\nWould you like to install it?\nY/N\n");
 }
-void installer_keyboard_callback() { // wip
-
+void installer_keyboard_callback(char keycode) { // wip
+	char key = keyboard_map[(unsigned char) keycode];
+	if (key == 'y') { // install
+		install();
+	} else if (key == 'n') { // no install
+		kprint("\n$");
+		keyboard_switch_kernel_mode();
+	}
+	return;
 }
 
 void main(void)
@@ -41,6 +51,9 @@ void main(void)
 	disable_cursor(); // cursor position by default is a seemingly 
 	// random spot on the left side of the screen 
 	// and i didnt feel like writing a moving cursor so i just hide it
+
+	setAppModeCallback(&installer_keyboard_callback);
+	keyboard_switch_app_mode();
 
 	// readSect();
 	if (ATA_ENABLED) {
@@ -57,7 +70,7 @@ void main(void)
 							// i think this may be slower but i am only reading one sector
 
 			if(sectBuffer[0] != "P" || sectBuffer != "S") { // os may be not installed or corrupted
-				install();
+				installQuestion();
 			}
 		}
 

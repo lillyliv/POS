@@ -58,6 +58,17 @@ void kb_init(void)
 
 u8 termMode = 0; // term mode of 0 means term, term mode 1 means app handles it, anything else is undefined behavior.
 
+void keyboard_switch_app_mode() {
+  termMode = 0b10000000;
+}
+void keyboard_switch_kernel_mode() {
+  termMode = 0b00000000;
+}
+// void (*appCallback)(char keycode);
+void (*appCallback)(char);
+void setAppModeCallback( void (*fun)(char) ) {
+  appCallback=fun;
+}
 void keyboard_handler_main(void)
 {
 	unsigned char status;
@@ -80,6 +91,8 @@ void keyboard_handler_main(void)
     }
     
     if (termMode == 0b10000000) { // app mode WIP
+
+      appCallback(keycode);
 
       return;
 
