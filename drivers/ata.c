@@ -1,5 +1,7 @@
 //
 // pos ata driver лилли 2023
+// only uses primary ata drive
+// supports disk sizes of up to 2 tib (aka plenty)
 //
 // this was copy pasted pretty much in its entierly but i forgot from where
 //
@@ -174,7 +176,7 @@ void ata_pio_read28(uint32_t LBA, uint8_t sectorcount, uint8_t *target) {
  * Send the "READ SECTORS EXT" command (0x24) to port 0x1F7: outb(0x1F7, 0x24)
  */
 
-void ata_pio_read48(uint64_t LBA, uint16_t sectorcount, uint8_t *target) {
+void ata_pio_read48(uint32_t LBA, uint16_t sectorcount, uint8_t *target) {
     // HARD CODE MASTER (for now)
     outb(ATA_PRIMARY_DRIVE_HEAD, 0x40);                     // Select master
     outb(ATA_PRIMARY_SECCOUNT, (sectorcount >> 8) & 0xFF ); // sectorcount high
@@ -210,7 +212,7 @@ void ata_pio_read48(uint64_t LBA, uint16_t sectorcount, uint8_t *target) {
  * (As before, do not use REP OUTSW when writing.) And remember to do a Cache Flush after
  * each write command completes.
  */
-void ata_pio_write48(uint64_t LBA, uint16_t sectorcount, uint8_t *target) {
+void ata_pio_write48(uint32_t LBA, uint16_t sectorcount, uint8_t *target) {
 
     // HARD CODE MASTER (for now)
     outb(ATA_PRIMARY_DRIVE_HEAD, 0x40);                     // Select master

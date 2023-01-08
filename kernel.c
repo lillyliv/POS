@@ -15,7 +15,7 @@
 #include "memory/memory.c"
 #include "misc/defs.c"
 #include "misc/panic.c"
-#include "filesystem/pfs.c"
+#include "filesystem/fs.c"
 #include "filesystem/vfs.c"
 
 #define PANIC_ON_NO_ATA 0
