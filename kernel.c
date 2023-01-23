@@ -20,9 +20,9 @@
 
 #define PANIC_ON_NO_ATA 0
 #define ATA_ENABLED 1
-#define INSTALL_IF_POS_NOT_DETECTED 1
+#define INSTALL_IF_POS_NOT_DETECTED 0
 
-const char* loadedMsg = "POS Loaded Successfully.\n";
+const char* loadedMsg = "POS Loaded Successfully.\nPress <ENTER> to continue";
 
 // static u8* atabuf[512] = {0};
 
@@ -59,18 +59,6 @@ void main(void)
 	// and i didnt feel like writing a moving cursor so i just hide it
 
 	init_dynamic_mem();
-	// char* asdf = mem_alloc(2);
-	// asdf[0] = 'a';
-	// asdf[1] = 0;
-	// kprint(asdf);
-	// mem_free(asdf);
-	// asdf = mem_alloc(2);
-	// asdf[0] = 'b';
-	// asdf[1] = 0;
-	// kprint(asdf);
-	// mem_free(asdf);
-	
-	// while (1) {}
 
 	// readSect();
 	if (ATA_ENABLED) {
@@ -86,7 +74,7 @@ void main(void)
 			ata_pio_read28(1, 1, sectBuffer); // using 24 bit for some backwards compatability,
 							// i think this may be slower but i am only reading one sector
 
-			if(sectBuffer[0] != "P" || sectBuffer != "S") { // os may be not installed or corrupted
+			if(sectBuffer[0] != "P" || sectBuffer[1] != "S") { // os may be not installed or corrupted
 				installQuestion();
 			}
 		}

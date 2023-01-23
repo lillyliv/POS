@@ -27,7 +27,8 @@ void memory_copy(uint8_t *source, uint8_t *dest, uint32_t nbytes) {
  * and thus also licensed under MIT license I guess?
  * For further details, see http://www.sunshine2k.de/license.html.
  */
-#define DYNAMIC_MEM_TOTAL_SIZE 4*1024
+// #define DYNAMIC_MEM_TOTAL_SIZE 4*1024
+#define DYNAMIC_MEM_TOTAL_SIZE 523000 // start to end of low memory
 #define DYNAMIC_MEM_NODE_SIZE sizeof(dynamic_mem_node_t)
 
 typedef struct dynamic_mem_node {
