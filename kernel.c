@@ -58,6 +58,20 @@ void main(void)
 	// random spot on the left side of the screen 
 	// and i didnt feel like writing a moving cursor so i just hide it
 
+	init_dynamic_mem();
+	// char* asdf = mem_alloc(2);
+	// asdf[0] = 'a';
+	// asdf[1] = 0;
+	// kprint(asdf);
+	// mem_free(asdf);
+	// asdf = mem_alloc(2);
+	// asdf[0] = 'b';
+	// asdf[1] = 0;
+	// kprint(asdf);
+	// mem_free(asdf);
+	
+	// while (1) {}
+
 	// readSect();
 	if (ATA_ENABLED) {
 

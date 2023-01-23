@@ -113,6 +113,7 @@ void termRunProgram(char* programName) {
     if(strcmp(programName, "install")) {
         installQuestion();
     }
+    exit_program();
 }
 
 void termHandleInput(char key) {
