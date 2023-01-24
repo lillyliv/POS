@@ -1,7 +1,8 @@
 //
 // pos ata driver лилли 2023
 // only uses primary ata drive
-// supports disk sizes of up to 2 tib (aka plenty)
+// supports disk sizes of up to 2 tib (aka plenty due to filesystem being able to utilize less than 1 gib,
+// but i guess you could have more than one filesystem per drive with a little code modification)
 //
 // this was copy pasted pretty much in its entierly but i forgot from where
 //
@@ -50,7 +51,7 @@
  * At that point, if ERR is clear, the data is ready to read from the Data port (0x1F0).
  * Read 256 16-bit values, and store them.
  */
-u8* sectBuffer[512] = {0};
+u8 sectBuffer[512] = {0};
 
 uint8_t identify() {
     inb(ATA_PRIMARY_COMM_REGSTAT);
